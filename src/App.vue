@@ -3,8 +3,7 @@ import Three from './components/three/index.vue'
 </script>
 
 <template>
-  <Three />
-    
+  <router-view />
 </template>
 
 <style scoped>
