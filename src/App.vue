@@ -6,17 +6,15 @@ import Three from './components/three/index.vue'
   <router-view />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style>
+html,
+body {
+  margin: 0;
+  height: 100%;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+#c {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 </style>
