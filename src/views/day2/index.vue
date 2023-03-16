@@ -21,8 +21,6 @@ const mainFunc = () => {
   const boxHeight = 1
   const boxDepth = 1
   const geometry = new BoxGeometry(boxWidth, boxHeight, boxDepth)
-  const material = new MeshPhongMaterial({ color: 0x44aa88 })
-  const cube = new Mesh(geometry, material)
   function makeInstance(geometry: BoxGeometry, color: number, x: number) {
     const material = new MeshPhongMaterial({ color })
     const cube = new Mesh(geometry, material)
@@ -41,6 +39,17 @@ const mainFunc = () => {
   const light = new DirectionalLight(color, intensity)
   light.position.set(-1, 2, 4)
   scene.add(light)
+  const resizeRendererToDisplaySize = (renderer: WebGLRenderer) => {
+    const canvas = renderer.domElement
+    const pixelRatio = window.devicePixelRatio
+    const width = (canvas.clientWidth * pixelRatio) | 0
+    const height = (canvas.clientHeight * pixelRatio) | 0
+    const needResize = canvas.width !== width || canvas.height !== height
+    if (needResize) {
+      renderer.setSize(width, height, false)
+    }
+    return needResize
+  }
   const render = (time: number) => {
     time *= 0.001
     cubes.forEach((cube, ndx) => {
@@ -49,6 +58,11 @@ const mainFunc = () => {
       cube.rotation.x = rot
       cube.rotation.y = rot
     })
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement
+      camera.aspect = canvas.clientWidth / canvas.clientHeight
+      camera.updateProjectionMatrix()
+    }
     renderer.render(scene, camera)
     requestAnimationFrame(render)
   }
