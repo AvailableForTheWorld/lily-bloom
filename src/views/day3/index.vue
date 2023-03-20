@@ -47,7 +47,7 @@ const mainFunc = () => {
     material.color.setHSL(hue, saturation, luminance)
     return material
   }
-  function addSolidGeometry(x, y, geometry) {
+  function addSolidGeometry(x: number, y: number, geometry: BoxGeometry) {
     const mesh = new Mesh(geometry, createMaterial())
     addObject(x, y, mesh)
   }
