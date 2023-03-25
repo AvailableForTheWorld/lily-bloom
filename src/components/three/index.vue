@@ -8,6 +8,7 @@ import { onMounted } from 'vue'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 const scene = new THREE.Scene()
+scene.background = new THREE.Color(0xeeeeee)
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 const renderer = new THREE.WebGLRenderer()
 const loader = new GLTFLoader()
@@ -19,12 +20,11 @@ onMounted(() => {
 const geometry = new THREE.CircleGeometry(2, 32)
 
 loader.load(
-  '/src/assets/model/test.gltf',
+  '/src/assets/model/test.glb',
   gltf => {
     console.log('gltf', gltf)
     const material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
-    const model = gltf.scene.children[0]
-    model.customDepthMaterial = material
+    const model = gltf.scene
     function animate() {
       requestAnimationFrame(animate)
 
@@ -34,7 +34,7 @@ loader.load(
 
       renderer.render(scene, camera)
     }
-    scene.add(gltf.scene.children[0])
+    scene.add(gltf.scene)
     animate()
   },
   undefined,
@@ -42,7 +42,7 @@ loader.load(
     console.error('loader ERROR: ', error)
   },
 )
-camera.position.z = 5
+camera.position.z = 20
 </script>
 
 <style lang="scss" scoped></style>
